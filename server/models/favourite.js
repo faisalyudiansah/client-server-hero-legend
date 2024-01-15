@@ -1,0 +1,27 @@
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Favourite extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      Favourite.belongsTo(models.User, { foreignKey: 'userId' })
+      Favourite.belongsTo(models.Hero, { foreignKey: 'heroId' })
+    }
+  }
+  Favourite.init({
+    heroId: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER,
+    role: DataTypes.STRING,
+    power: DataTypes.INTEGER
+  }, {
+    sequelize,
+    modelName: 'Favourite',
+  });
+  return Favourite;
+};
